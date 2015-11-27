@@ -1,0 +1,21 @@
+<virtualhost *:80>
+  ServerAdmin default
+  ServerName <%= @params[:server_name] %>
+
+  ProxyRequests off
+
+  <Proxy *>
+    Require all granted
+  </Proxy>
+
+  <Location />
+    ProxyPass http://localhost:<%= @params[:port] %>/
+    ProxyPassReverse http://localhost:<%= @params[:port] %>/
+  </Location>
+
+  LogLevel warn
+  ErrorLog /var/log/apache2/bodeutsch_error.log
+  CustomLog /var/log/apache2/bodeutsch_access.log combined
+
+</virtualhost>
+
